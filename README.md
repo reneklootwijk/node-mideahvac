@@ -1,23 +1,23 @@
 
 # Monitoring and controlling Midea-like air conditioners
-This module enables the monitoring and controlling of 'Midea'-like airconditioners. The remote control functionality via Wifi provided by various vendors of air conditioners, either as default or optional feature, is using the same type of interface and the Midea cloud. Examples of vendors using this interface are:
+This module enables the monitoring and controlling of 'Midea'-like airconditioners. The remote control functionality via WiFi provided by various vendors of air conditioners, either as default or optional feature, is using the same type of interface and the Midea cloud. Examples of vendors using this interface are:
 * Midea
 * Qlima
 * Artel
 * Carrier
 
-The Wifi interface is provided by a dongle either connected with an USB type-A connector or a JST-HX type of connector. This dongle wraps the UART protocol used to communicate with the AC unit with a layer for authentication and encryption for communication with a mobile app via the Midea cloud or directly via a local LAN connection. However, it turned out the dongle is just connected to a serial interface (TTL level) of the AC unit and which means an alternative is to hook up directly to this serial interface and bypass the cloud, authentication and encryption stuff, for instance using an ESP8266 (documentation will be added later).
+The WiFi interface is provided by a dongle, called WiFi SmartKey, either connected to an USB type-A connector or a JST-HX type of connector. This dongle wraps the UART protocol used to communicate with the AC unit with a layer for authentication and encryption for communication with a mobile app via the Midea cloud or directly via a local LAN connection. However, it turned out the dongle is just connected to a serial interface (TTL level) of the AC unit. This means an alternative is to hook up directly to this serial interface and bypass the cloud, authentication and encryption stuff, for instance using an ESP8266 (see [ADAPTER.md](./ADAPTER.md)).
 
-In the current version of this module communication using the SmartKey and the Midea cloud and communication via a TCP serial bridge connected to the UART port is supported.
-Direct connection to the SmartKey Wifi interface via a local LAN connection will be added later.
+In the current version of this module communication using the WiFi SmartKey and the Midea Cloud and communication via a TCP serial bridge connected to the UART port is supported.
+Direct connection to the WiFi SmartKey interface via a local LAN connection will be added later.
 
 ## References and sources
-The knowledge to create the logic to monitor and control the Midea-'like' HVAC units was gathered by reverse engineering Android applications from various vendors, analyzing the UART protocol between an Artel unit and an SK103 SmartKey, documents found on the Internet, primarily in Chinese and the work from:
+The knowledge to create the logic to monitor and control the Midea-'like' AC units was gathered by reverse engineering Android applications from various vendors, analyzing the UART protocol between an Artel unit and an SK103 SmartKey, documents found on the Internet, primarily in Chinese and the work from:
 * Mac Zhou: https://github.com/mac-zhou/midea-msmart
 * NeoAcheron: https://github.com/NeoAcheron/midea-ac-py
 
 ## Status
-There are still a lots of unknowns in the protocol, either because there are really unknown or because I was not able to test them on the appliances I have myself (Artel). Any pull requests to improve and enhance the module are welcome.
+There are still a lots of unknowns in the protocol, either because they are really unknown or because I was not able to test them on the AC units I have myself (Artel). Any pull requests to improve and enhance the module are welcome.
 
 ## Installation
 ```bash
@@ -35,7 +35,7 @@ First create an appliance instance by specifying the following parameters:
 * `password`, the password to login into the Midea Cloud 
 * `deviceId`, the id of the device to address via the Midea Cloud
 
-For each AC unit to be monitored and controlled an appliance must be created. When multiple appliances are configured using the same uid for the Midea Cloud, the connection to the cloud will be shared between these appliances. However, it is also possible to monitor and control appliances using different uid's.
+For each AC unit to be monitored and controlled an appliance must be created. When multiple appliances are configured using the same uid for the Midea Cloud, the connection to the cloud will be shared between these appliances. However, it is also possible to monitor and control appliances linked to different uid's.
 
 An example of creating an appliance using the Midea Cloud:
 ```javascript
@@ -44,7 +44,8 @@ const appliances = require('node-mideahvac')
 var options = {
     communicationMethod: 'mideacloud',
     uid: <your email address>,
-    password: <your password>
+    password: <your password>,
+    deviceId: <the id of the device to control>
 }
 
 var ac = new applicances.createAppliance(options)
@@ -73,7 +74,7 @@ The following methods are provided:
 
 | Capability | Type | Description |
 |---|---|---|
-| auto | boolean | automatically select cool or heat mode |
+| autoMode | boolean | automatically select cool or heat mode |
 | autoAdjustDownTemp | number | a specified setpoint under this temperature will be set to this temperature in auto mode |
 | autoAdjustUpTemp | number | a specified setpoint above this temperature will be set to this temperature in auto mode |
 | coolMode | boolean | cool mode |
@@ -229,6 +230,9 @@ logger.add(new logger.transports.Console({
 By specifying the level you can control the amount of logging generated.
 
 More information on Winston can be found here: https://www.npmjs.com/package/winston
+
+# Observations
+As a test I monitored my 4 identical AC units (Artel) for a couple of days 24hr/day. 1 unit was monitored via a serialbridge connection the others via the Midea Cloud. The units monitored via the Midea Cloud reported sometimes wrong values for various properties (e.g. powerOn, hortizontalSwingActive, setpoint) while the unit monitored via the serialbridge did not show this behaviour. Also the Midea Cloud regularly returned an error (timeout or system error) or was unavailable completely for hours. This makes me conclude the Midea Cloud is unreliable.
 
 # To do
 * Support Fahrenheit
