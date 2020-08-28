@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "axios-mock-adapter": "^1.18.2",
     "winston": "^3.3.3"
   },
   "license": "MIT",
@@ -31,5 +32,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "lint": "node_modules/.bin/eslint '**/*.js'",
+    "test": "mocha",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   }
 }

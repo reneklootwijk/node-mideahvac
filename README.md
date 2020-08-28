@@ -175,17 +175,18 @@ The following methods are provided:
 * `setStatus(properties, retry, emitUpdates)`, this method must be used to change the status of the unit. The properties parameter is an object containing all the properties and their values that need to be changed. The retry parameter indicates whether the command must be retried in case of a retryable error occurs (default = false) and the emitUpdates parameter indicates whether or not the status-update event must be emitted when updates are detected (default = true). The response is a JSON object containing all the properties with their values.
 In this version the following properties can be set:
 
- Property | Type | Possible values |
+ Property | Type | Possible values | Description |
 | --- | --- | --- |
-| powerOn | boolean | true, false |
-| setpoint | number | 16 - 31 |
-| mode | string | cool, heat, fanonly, dry, auto |
-| fanSpeed | string | low, medium, high, auto |
-| horizontalSwingActive | boolean | true, false |
-| sleepModeActive | boolean | true, false |
-| verticalSwingMode | boolean | true, false |
-| turboModeActive | boolean | true, false |
-| frostProtectionModeActive | boolean | true, false |
+| beep | boolean | true, false | en/disable a beep as feedback |
+| powerOn | boolean | true, false | power the unit on/off |
+| setpoint | number | 16 - 31 | set the desired temperature |
+| mode | string | cool, heat, fanonly, dry, auto | set the operational mode |
+| fanSpeed | string | low, medium, high, auto | set the fan speed |
+| horizontalSwingActive | boolean | true, false | turn the horizontal swinger on/off |
+| sleepModeActive | boolean | true, false | turn the sleep mode on/off |
+| verticalSwingMode | boolean | true, false | turn the vertical swinger on/off |
+| turboModeActive | boolean | true, false | turn turbo mode on/off |
+| frostProtectionModeActive | boolean | true, false | turn frost protection mode (min. temperature is 8°C) on/off. This is only supported in heat mode |
 
 Example: 
 Turn the unit on, set the setpoint to 24°C, retry until successful and emit the `status-update` event to report the new property values. 
@@ -213,7 +214,7 @@ The Winston module
 is used for logging. You can configure the logging by creating your own logger, e.g.:
 
 ```javascript
-const logger = require('winston)
+const logger = require('winston')
 
 logger.remove(logger.transports.Console)
 logger.add(new logger.transports.Console({
