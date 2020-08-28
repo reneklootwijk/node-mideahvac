@@ -18,8 +18,8 @@ jobs:
       - run: npm run coverage
       - name: Coveralls
         uses: coverallsapp/github-action@master
-          with:
-            github-token: ${{ secrets.COVERALLS }}
+        with:
+          github-token: ${{ secrets.COVERALLS }}
 
   publish-npm:
     needs: build
