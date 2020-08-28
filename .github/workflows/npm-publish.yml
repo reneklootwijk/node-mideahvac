@@ -1,6 +1,8 @@
-name: Node.js Package
+name: npm-publish
 
-on: [push]
+on:
+  - push
+  - pull_request
 
 jobs:
   build:
@@ -11,6 +13,9 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run coverage
 
   publish-npm:
     needs: build
