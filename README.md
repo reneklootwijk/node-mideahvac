@@ -197,7 +197,7 @@ In this version the following properties can be set:
 | powerOn | boolean | true, false | power the unit on/off |
 | setpoint | number | 16 - 31 | set the desired temperature |
 | sleepModeActive | boolean | true, false | turn the sleep mode on/off |
-| temperatureMode | string | fahrenheit, celcius | set the temperature unit to fahrenheit/celcius |
+| temperatureUnit | string | fahrenheit, celcius | set the temperature unit to fahrenheit/celcius |
 | turboModeActive | boolean | true, false | turn turbo mode on/off |
 | verticalSwingMode | boolean | true, false | turn the vertical swinger on/off |
 
