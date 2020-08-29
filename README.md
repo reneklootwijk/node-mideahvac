@@ -1,10 +1,11 @@
+# Monitoring and controlling Midea-like air conditioners
+
 ![tests](https://github.com/reneklootwijk/node-mideahvac/workflows/npm-publish/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/reneklootwijk/node-mideahvac/badge.svg?branch=master)](https://coveralls.io/github/reneklootwijk/node-mideahvac?branch=master)
 ![npm](https://img.shields.io/npm/v/node-mideahvac)
----
 
-# Monitoring and controlling Midea-like air conditioners
 This module enables the monitoring and controlling of 'Midea'-like airconditioners. The remote control functionality via WiFi provided by various vendors of air conditioners, either as default or optional feature, is using the same type of interface and the Midea cloud. Examples of vendors using this interface are:
+
 * Midea
 * Qlima
 * Artel
@@ -16,32 +17,38 @@ In the current version of this module communication using the WiFi SmartKey and 
 Direct connection to the WiFi SmartKey interface via a local LAN connection will be added later.
 
 ## References and sources
+
 The knowledge to create the logic to monitor and control the Midea-'like' AC units was gathered by reverse engineering Android applications from various vendors, analyzing the UART protocol between an Artel unit and an SK103 SmartKey, documents found on the Internet, primarily in Chinese and the work from:
-* Mac Zhou: https://github.com/mac-zhou/midea-msmart
-* NeoAcheron: https://github.com/NeoAcheron/midea-ac-py
+
+* Mac Zhou: <https://github.com/mac-zhou/midea-msmart>
+* NeoAcheron: <https://github.com/NeoAcheron/midea-ac-py>
 
 ## Status
+
 There are still a lots of unknowns in the protocol, either because they are really unknown or because I was not able to test them on the AC units I have myself (Artel). Any pull requests to improve and enhance the module are welcome.
 
 ## Installation
+
 ```bash
-$ npm install node-mideahvac
+npm install node-mideahvac
 ```
 
 ## Usage
 
 First create an appliance instance by specifying the following parameters:
+
 * `communicationMethod`, this must be either 'mideacloud' or 'serialbridge'
 * `host`, in case of the mideacloud method this will be the address of the cloud service which defaults to mapp.appsmb.com. In case of the serialbridge method this is the address of the serialbridge.
 * `port`, in case of the mideacloud method this will be the port of the cloud service which defaults to 443. In case of the serialbridge method this is the port of the serialbridge which defaults to 23.
 * `appKey`, the appKey authenticates the application when using the Midea cloud. Optionally you can specify your own, but it defaults to a hardcoded appKey.
 * `uid`, the user Id to logon to the Midea Cloud
-* `password`, the password to login into the Midea Cloud 
+* `password`, the password to login into the Midea Cloud
 * `deviceId`, the id of the device to address via the Midea Cloud
 
 For each AC unit to be monitored and controlled an appliance must be created. When multiple appliances are configured using the same uid for the Midea Cloud, the connection to the cloud will be shared between these appliances. However, it is also possible to monitor and control appliances linked to different uid's.
 
 An example of creating an appliance using the Midea Cloud:
+
 ```javascript
 const appliances = require('node-mideahvac')
 
@@ -52,10 +59,11 @@ var options = {
     deviceId: <the id of the device to control>
 }
 
-var ac = new applicances.createAppliance(options)
+var ac = appliances.createAppliance(options)
 ```
 
 An example of creating an appliance using a TCP serial bridge:
+
 ```javascript
 const appliances = require('node-mideahvac')
 
@@ -65,19 +73,19 @@ var options = {
     port: 23
 }
 
-var ac = new applicances.createAppliance(options)
+var ac = appliances.createAppliance(options)
 ```
 
 ### Methods
+
 All methods return a promise. An application should first use the `initialize` method to obtain the current status of the unit.
 
 The following methods are provided:
 
-* `getCapabilities(retry)`, this method requests the AC unit for its supported capabilities (B5 query). The retry parameter indicates whether or not the command must be retried when a retryable error occurs (default = false). The promise resolves to a JSON object containing the following capabilities (how many capabilities are actually reported dependents on what your unit reports): 
-
+* `getCapabilities(retry)`, this method requests the AC unit for its supported capabilities (B5 query). The retry parameter indicates whether or not the command must be retried when a retryable error occurs (default = false). The promise resolves to a JSON object containing the following capabilities (how many capabilities are actually reported dependents on what your unit reports):
 
 | Capability | Type | Description |
-|---|---|---|
+| --- | --- | --- |
 | autoMode | boolean | automatically select cool or heat mode |
 | autoAdjustDownTemp | number | a specified setpoint under this temperature will be set to this temperature in auto mode |
 | autoAdjustUpTemp | number | a specified setpoint above this temperature will be set to this temperature in auto mode |
@@ -180,20 +188,21 @@ The following methods are provided:
 In this version the following properties can be set:
 
  Property | Type | Possible values | Description |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | beep | boolean | true, false | en/disable a beep as feedback |
+| fanSpeed | string | low, medium, high, auto | set the fan speed |
+| frostProtectionModeActive | boolean | true, false | turn frost protection mode (min. temperature is 8°C) on/off. This is only supported in heat mode |
+| horizontalSwingActive | boolean | true, false | turn the horizontal swinger on/off |
+| mode | string | cool, heat, fanonly, dry, auto | set the operational mode |
 | powerOn | boolean | true, false | power the unit on/off |
 | setpoint | number | 16 - 31 | set the desired temperature |
-| mode | string | cool, heat, fanonly, dry, auto | set the operational mode |
-| fanSpeed | string | low, medium, high, auto | set the fan speed |
-| horizontalSwingActive | boolean | true, false | turn the horizontal swinger on/off |
 | sleepModeActive | boolean | true, false | turn the sleep mode on/off |
-| verticalSwingMode | boolean | true, false | turn the vertical swinger on/off |
+| temperatureMode | string | fahrenheit, celcius | set the temperature unit to fahrenheit/celcius |
 | turboModeActive | boolean | true, false | turn turbo mode on/off |
-| frostProtectionModeActive | boolean | true, false | turn frost protection mode (min. temperature is 8°C) on/off. This is only supported in heat mode |
+| verticalSwingMode | boolean | true, false | turn the vertical swinger on/off |
 
-Example: 
-Turn the unit on, set the setpoint to 24°C, retry until successful and emit the `status-update` event to report the new property values. 
+Example:
+Turn the unit on, set the setpoint to 24°C, retry until successful and emit the `status-update` event to report the new property values.
 
 ```javascript
 ac.setStatus({ powerOn: true, setpoint: 24 }, true, true)
@@ -203,6 +212,7 @@ ac.setStatus({ powerOn: true, setpoint: 24 }, true, true)
 ```
 
 ### Events
+
 The following events are emitted:
 
 * `connected`, this event is emitted when using the serialbridge communication method and the connection to the bridge has been established.
@@ -214,8 +224,8 @@ The following events are emitted:
 * `status-update`, this event is emitted when the value of one or more properties is updated. The data is a JSON object containing all updated properties with their values.
 
 # Logging
-The Winston module 
-is used for logging. You can configure the logging by creating your own logger, e.g.:
+
+The Winston module is used for logging. You can configure the logging by creating your own logger, e.g.:
 
 ```javascript
 const logger = require('winston')
@@ -232,14 +242,15 @@ logger.add(new logger.transports.Console({
   level: 'silly'
 }))
 ```
+
 By specifying the level you can control the amount of logging generated.
 
-More information on Winston can be found here: https://www.npmjs.com/package/winston
+More information on Winston can be found here: <https://www.npmjs.com/package/winston>
 
 # Observations
+
 As a test I monitored my 4 identical AC units (Artel) for a couple of days 24hr/day. 1 unit was monitored via a serialbridge connection the others via the Midea Cloud. The units monitored via the Midea Cloud reported sometimes wrong values for various properties (e.g. powerOn, hortizontalSwingActive, setpoint) while the unit monitored via the serialbridge did not show this behaviour. Also the Midea Cloud regularly returned an error (timeout or system error) or was unavailable completely for hours. This makes me conclude the Midea Cloud is unreliable.
 
 # To do
-* Support Fahrenheit
-* Include automatic tests
+
 * Add support for the direct LAN communication via the WiFi SmartKey

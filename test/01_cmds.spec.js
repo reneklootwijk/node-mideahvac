@@ -212,28 +212,52 @@ describe('Check construction of commands', function () {
 
   it('check construction of setStatus command - setpoint', async function () {
     try {
-      await ac.setStatus({ setpoint: 13 })
+      await ac.setStatus({ setpoint: 13, temperatureUnit: 'celcius' })
     } catch (error) {
-      assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 13 succeeded')
+      assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 13°C succeeded')
     }
 
     try {
-      await ac.setStatus({ setpoint: 34 })
+      await ac.setStatus({ setpoint: 13, temperatureUnit: 'fahrenheit' })
     } catch (error) {
-      assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 34 succeeded')
+      assert.strictEqual(error.message, 'The setpoint must be between 60 - 87°F', 'setting setpoint: 13°F succeeded')
     }
 
     try {
-      await ac.setStatus({ setpoint: 18 })
+      await ac.setStatus({ setpoint: 34, temperatureUnit: 'celcius' })
     } catch (error) {
-      assert.strictEqual(error.message, 'aa24ac00000000000302404202000000003000000000000000000000000000000000002156', 'setting setpoint: 18 failed')
+      assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 34°C succeeded')
     }
 
     try {
-      await ac.setStatus({ setpoint: 23.5 })
+      await ac.setStatus({ setpoint: 90, temperatureUnit: 'fahrenheit' })
     } catch (error) {
-      assert.strictEqual(error.message, 'aa24ac0000000000030240421700000000300000000000000000000000000000000000382a', 'setting setpoint: 23.5 failed')
+      assert.strictEqual(error.message, 'The setpoint must be between 60 - 87°F', 'setting setpoint: 90°F succeeded')
     }
+
+    try {
+      await ac.setStatus({ setpoint: 18, temperatureUnit: 'celcius' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac00000000000302404202000000003000000000000000000000000000000000002156', 'setting setpoint: 18°C failed')
+    }
+
+    try {
+      await ac.setStatus({ setpoint: 64, temperatureUnit: 'fahrenheit' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac00000000000302404202000000003000000400000000000000000000000000001360', 'setting setpoint: 64°F failed')
+    }
+    try {
+      await ac.setStatus({ setpoint: 23.5, temperatureUnit: 'celcius' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac0000000000030240421700000000300000000000000000000000000000000000382a', 'setting setpoint: 23.5°C failed')
+    }
+
+    try {
+      await ac.setStatus({ setpoint: 74, temperatureUnit: 'fahrenheit' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac00000000000302404217000000003000000400000000000000000000000000000a54', 'setting setpoint: 74°F failed')
+    }
+
   })
 
   it('check construction of setStatus command - sleepModeActive', async function () {
@@ -253,6 +277,26 @@ describe('Check construction of commands', function () {
       await ac.setStatus({ sleepModeActive: false })
     } catch (error) {
       assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003000000000000000000000000000000000001c5d', 'setting sleepModeActive: false failed')
+    }
+  })
+
+  it('check construction of setStatus command - temperatureUnit', async function () {
+    try {
+      await ac.setStatus({ temperatureUnit: 4 })
+    } catch (error) {
+      assert.strictEqual(error.message, 'The temperatureUnit must either be fahrenheit or celcius', 'setting temperatureUnit: invalid value failed')
+    }
+
+    try {
+      await ac.setStatus({ temperatureUnit: 'fahrenheit' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003000000400000000000000000000000000002e47', 'setting tempertureUnit: fahrenheit failed')
+    }
+
+    try {
+      await ac.setStatus({ temperatureUnit: 'celcius' })
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003000000000000000000000000000000000001c5d', 'setting tempertureUnit: ceclius failed')
     }
   })
 
