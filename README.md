@@ -52,7 +52,7 @@ var options = {
     deviceId: <the id of the device to control>
 }
 
-var ac = new applicances.createAppliance(options)
+var ac = appliances.createAppliance(options)
 ```
 
 An example of creating an appliance using a TCP serial bridge:
@@ -65,7 +65,7 @@ var options = {
     port: 23
 }
 
-var ac = new applicances.createAppliance(options)
+var ac = appliances.createAppliance(options)
 ```
 
 ### Methods
