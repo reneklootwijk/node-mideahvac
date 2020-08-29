@@ -185,6 +185,7 @@ The following methods are provided:
 * `initialize()`, the initialize command will connect to the unit and use the `getCapability` and `getStatus` initialize the unit.  The promise will resolve to a nested JSON object containing a status object with all properties and their values and a capabilities object containing all capabilities reported by the unit.
 
 * `setStatus(properties, retry, emitUpdates)`, this method must be used to change the status of the unit. The properties parameter is an object containing all the properties and their values that need to be changed. The retry parameter indicates whether the command must be retried in case of a retryable error occurs (default = false) and the emitUpdates parameter indicates whether or not the status-update event must be emitted when updates are detected (default = true). The response is a JSON object containing all the properties with their values.
+
 In this version the following properties can be set:
 
  Property | Type | Possible values | Description |
