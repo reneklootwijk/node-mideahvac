@@ -179,8 +179,8 @@ The following methods are provided:
 * `setStatus(properties, retry, emitUpdates)`, this method must be used to change the status of the unit. The properties parameter is an object containing all the properties and their values that need to be changed. The retry parameter indicates whether the command must be retried in case of a retryable error occurs (default = false) and the emitUpdates parameter indicates whether or not the status-update event must be emitted when updates are detected (default = true). The response is a JSON object containing all the properties with their values.
 In this version the following properties can be set:
 
- Property | Type | Possible values | Description |
-| --- | --- | --- |
+| Property | Type | Possible values | Description |
+|---|---|---|---|
 | beep | boolean | true, false | en/disable a beep as feedback |
 | powerOn | boolean | true, false | power the unit on/off |
 | setpoint | number | 16 - 31 | set the desired temperature |
