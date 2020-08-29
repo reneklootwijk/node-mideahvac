@@ -5,10 +5,9 @@ const appliances = require('node-mideahvac')
 
 // Specify your specific information
 const ac = appliances.createAppliance({
-  deviceId: '<replace by a device Id>',
-  communicationMethod: 'mideacloud',
-  uid: '<replace by your user Id for the Midea Cloud>',
-  password: '<replace by your password for the Midea Cloud>'
+  communicationMethod: 'serialbridge',
+  host: '<replace by the IP address of your serial bridge>',
+  port: '<replace by the port of your serial bridge>'
 })
 
 ac.on('status-update', data => {
