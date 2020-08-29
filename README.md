@@ -195,7 +195,7 @@ In this version the following properties can be set:
 | horizontalSwingActive | boolean | true, false | turn the horizontal swinger on/off |
 | mode | string | cool, heat, fanonly, dry, auto | set the operational mode |
 | powerOn | boolean | true, false | power the unit on/off |
-| setpoint | number | 16 - 31 | set the desired temperature |
+| setpoint | number | 16 - 31 / 60 - 88| set the desired temperature in °C or °F|
 | sleepModeActive | boolean | true, false | turn the sleep mode on/off |
 | temperatureUnit | string | fahrenheit, celcius | set the temperature unit to fahrenheit/celcius |
 | turboModeActive | boolean | true, false | turn turbo mode on/off |
