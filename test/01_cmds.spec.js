@@ -142,7 +142,7 @@ describe('Check construction of commands', function () {
     try {
       await ac.setStatus({ horizontalSwingActive: true })
     } catch (error) {
-      assert.strictEqual(error.message, 'aa24ac0000000000030240420000000000f000000000000000000000000000000000004673', 'setting horizontalSwingActive: true failed')
+      assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003c0000000000000000000000000000000000b6b7', 'setting horizontalSwingActive: true failed')
     }
 
     try {
