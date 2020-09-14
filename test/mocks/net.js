@@ -12,14 +12,28 @@ class Connection extends EventEmitter {
     }, 100, this)
   }
 
+  address () {
+    return {
+      address: '10.1.1.1'
+    }
+  }
+
   mockDisconnect () {
     this.emit('close')
   }
 
   write (data, cb = {}) {
-    setTimeout((self) => {
-      self.emit('data', self.mockResponses.shift())
-    }, 100, this)
+    // Emit response when a mocked resonse has been defined
+    if (this.mockResponses.length) {
+      setTimeout((self) => {
+        // When first byte of mocked response is 0x99, fake timeout
+        if (self.mockResponses[0][0] === 0x99) {
+          self.mockResponses.shift()
+        } else {
+          self.emit('data', self.mockResponses.shift())
+        }
+      }, 100, this)
+    }
 
     cb()
   }

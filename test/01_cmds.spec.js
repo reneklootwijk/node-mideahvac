@@ -28,7 +28,7 @@ describe('Check construction of commands', function () {
     try {
       await ac.getStatus()
     } catch (error) {
-      assert.strictEqual(error.message, 'aa1fac00000000000303412100ff00ff00000000000000000000000000002da2', 'getStatus command corrupted')
+      assert.strictEqual(error.message, 'aa20ac00000000000303418100ff03ff000200000000000000000000000003cd99', 'getStatus command corrupted')
     }
   })
 
@@ -36,7 +36,7 @@ describe('Check construction of commands', function () {
     try {
       await ac.getCapabilities()
     } catch (error) {
-      assert.strictEqual(error.message, 'aa0eac00000000000303b501118eeb', 'getCapabilities command corrupted')
+      assert.strictEqual(error.message, 'aa0fac00000000000303b50101012166', 'getCapabilities command corrupted')
     }
   })
 
@@ -310,7 +310,7 @@ describe('Check construction of commands', function () {
     try {
       await ac.setStatus({ turboModeActive: true })
     } catch (error) {
-      assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003000000200000000000000000000000000000572', 'setting turboModeActive: true failed')
+      assert.strictEqual(error.message, 'aa24ac000000000003024042000000000030200002000000000000000000000000000098bf', 'setting turboModeActive: true failed')
     }
 
     try {

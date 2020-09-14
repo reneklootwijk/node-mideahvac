@@ -8,6 +8,13 @@ rewireMock.enable()
 
 rewireMock('net').by('./mocks/net')
 
+const networkNotification = Buffer.from([
+  0xAA, 0x1F, 0xAC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x0D,
+  0x01, 0x01, 0x04, 0x04, 0x05, 0xA8, 0xC0, 0xFF, 0x00, 0x01,
+  0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x7B, 0x31
+])
+
 const c0Response = Buffer.from([
   0xAA, 0x22, 0xAC, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03,
   0xC0, 0x00, 0x48, 0x66, 0x7F, 0x7F, 0x00, 0x30, 0x00, 0x00,
@@ -83,8 +90,9 @@ describe('Integration tests serial bridge:', function () {
       })
 
       await ac._connect()
-      ac._connection.mockResponses.push(c0Response)
+      ac._connection.mockResponses.push(networkNotification)
       ac._connection.mockResponses.push(b5Response)
+      ac._connection.mockResponses.push(c0Response)
       init = await ac.initialize()
     })
 
@@ -95,6 +103,62 @@ describe('Integration tests serial bridge:', function () {
     it('the correct number of properties and capabilities must be returned', function () {
       assert.strictEqual(Object.keys(init.status).length, 52, 'wrong number of properties returned')
       assert.strictEqual(Object.keys(init.capabilities).length, 38, 'wrong number of capabilities returned')
+    })
+  })
+
+  describe('initialize the appliance without support for network notification', function () {
+    var init
+
+    before(async function () {
+      // Reset flags
+      eventInitialized = false
+
+      ac.on('initialized', () => {
+        eventInitialized = true
+      })
+
+      await ac._connect()
+      ac._connection.mockResponses.push(Buffer.from([0x99]))
+      ac._connection.mockResponses.push(b5Response)
+      ac._connection.mockResponses.push(c0Response)
+      init = await ac.initialize()
+    })
+
+    it('the initialized event should have been received', function () {
+      assert.strictEqual(eventInitialized, true, 'initialized event has not been received')
+    })
+
+    it('the correct number of properties and capabilities must be returned', function () {
+      assert.strictEqual(Object.keys(init.status).length, 52, 'wrong number of properties returned')
+      assert.strictEqual(Object.keys(init.capabilities).length, 38, 'wrong number of capabilities returned')
+    })
+  })
+
+  describe('initialize the appliance without support for getCapabilities', function () {
+    var init
+
+    before(async function () {
+      // Reset flags
+      eventInitialized = false
+
+      ac.on('initialized', () => {
+        eventInitialized = true
+      })
+
+      await ac._connect()
+      ac._connection.mockResponses.push(networkNotification)
+      ac._connection.mockResponses.push(Buffer.from([0x99]))
+      ac._connection.mockResponses.push(c0Response)
+      init = await ac.initialize()
+    })
+
+    it('the initialized event should have been received', function () {
+      assert.strictEqual(eventInitialized, true, 'initialized event has not been received')
+    })
+
+    it('the correct number of properties and capabilities must be returned', function () {
+      assert.strictEqual(Object.keys(init.status).length, 52, 'wrong number of properties returned')
+      assert.strictEqual(Object.keys(init.capabilities).length, 0, 'wrong number of capabilities returned')
     })
   })
 })
