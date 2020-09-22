@@ -27,6 +27,13 @@ const b5Response = Buffer.from([
   0x79, 0x80
 ])
 
+const c8Response = Buffer.from([
+  0xaa, 0x22, 0xa1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x03,
+  0xc8, 0x01, 0x01, 0xd0, 0x7f, 0x89, 0x00, 0x4b, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2f, 0x64, 0x00, 0x00,
+  0x00, 0x00, 0xa4, 0x62, 0xb1
+])
+
 describe('Parser tests:', function () {
   let result
 
@@ -69,5 +76,22 @@ describe('Parser tests:', function () {
     assert.strictEqual(result.strongHeat, true, 'strongHeat is reported incorrect')
     assert.strictEqual(result.strongCool, true, 'strongCool is reported incorrect')
     assert.strictEqual(result.verticalSwingMode, true, 'verticalSwingMode is reported incorrect')
+  })
+
+  it('c8 response parser', function () {
+    var result = parse(c8Response)
+
+    assert.strictEqual(result.powerOn, true, 'powerOn is reported incorrect')
+    assert.strictEqual(result.dehumidifierMode, 1, 'dehumidifierMode is reported incorrect')
+    assert.strictEqual(result.fanSpeed, 80, 'fanSpeed is reported incorrect')
+    assert.strictEqual(result.onTimerActive, false, 'onTimerActive is reported incorrect')
+    assert.strictEqual(result.onTimerMinutes, 0, 'onTimerMinutes is reported incorrect')
+    assert.strictEqual(result.onTimerHours, 0, 'onTimerHours is reported incorrect')
+    assert.strictEqual(result.offTimerActive, true, 'offTimerActive is reported incorrect')
+    assert.strictEqual(result.offTimerHours, 2.5, 'offTimerHours is reported incorrect')
+    assert.strictEqual(result.offTimerMinutes, 30, 'offTimerMinutes is reported incorrect')
+    assert.strictEqual(result.humiditySetpoint, 75, 'humiditySetpoint is reported incorrect')
+    assert.strictEqual(result.currentHumidity, 47, 'currentHumidity is reported incorrect')
+    assert.strictEqual(result.errorCode, 0, 'errorCode is reported incorrect')
   })
 })
