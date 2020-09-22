@@ -1,3 +1,7 @@
+# 0.1.13
+
+* Added a parser for the C8 response used by the DeHumidifier appliance (thanks to Sören Beye)
+
 ## 0.1.12
 
 * When parsing the C0 response the turbo property is now set when the strong and/or the turbo bit has been set
