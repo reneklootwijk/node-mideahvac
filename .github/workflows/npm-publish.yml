@@ -34,5 +34,5 @@ jobs:
       - run: npm ci
       - uses: JS-DevTools/npm-publish@v1
         with:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          token: ${{secrets.NPM_AUTH_TOKEN}}
 
