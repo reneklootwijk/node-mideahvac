@@ -1,6 +1,6 @@
 # Monitoring and controlling Midea-like air conditioners
 
-[![Build Status](https://github.com/reneklootwijk/node-mideahvac/workflows/npm-publish/badge.svg)](https://github.com/reneklootwijk/node-mideahvac/actions)
+[![Build Status](https://github.com/reneklootwijk/node-mideahvac/workflows/.github/workflows/CI-CD.yml/badge.svg)](https://github.com/reneklootwijk/node-mideahvac/actions)
 [![Coverage Status](https://coveralls.io/repos/github/reneklootwijk/node-mideahvac/badge.svg?branch=master)](https://coveralls.io/github/reneklootwijk/node-mideahvac?branch=master)
 [![npm](https://img.shields.io/npm/v/node-mideahvac)](https://www.npmjs.com/package/node-mideahvac)
 
