@@ -78,7 +78,7 @@ describe('Parser tests:', function () {
     assert.strictEqual(result.verticalSwingMode, true, 'verticalSwingMode is reported incorrect')
   })
 
-  it('c8 response parser', function () {
+  it('C8 response parser', function () {
     var result = parse(c8Response)
 
     assert.strictEqual(result.powerOn, true, 'powerOn is reported incorrect')

@@ -1,4 +1,8 @@
-# 0.1.13
+## 0.1.14
+
+* Turns out the sendNetworkStatusNotification must be send once each 2 minutes to prevent the WiFi symbol from disappearing.
+
+## 0.1.13
 
 * Added a parser for the C8 response used by the DeHumidifier appliance (thanks to Sören Beye)
 
@@ -9,8 +13,8 @@
 * The function to add the header now also takes a parameter to specify the agreement version
 * Changed the getCapabilities command (no impact on response)
 * Changed the getStatus command (no impact on response)
-* Fixed bug in sendNetworkNotification (AP mode changed into client mode) this prevents the WiFi symbol from disappearing after approx. 20s
-* Continue initialization even when a unit does not support the sendNetworkNotification and/or getCapabilities commands
+* Fixed bug in sendNetworkStatusNotification (AP mode changed into client mode) this prevents the WiFi symbol from disappearing after approx. 20s
+* Continue initialization even when a unit does not support the sendNetworkStatusNotification and/or getCapabilities commands
 * Updated unit tests
 
 ## 0.1.11
