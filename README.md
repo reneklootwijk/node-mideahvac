@@ -1,8 +1,10 @@
 # Monitoring and controlling Midea-like air conditioners
 
-![tests](https://github.com/reneklootwijk/node-mideahvac/workflows/npm-publish/badge.svg)
+[![Build Status](https://github.com/reneklootwijk/node-mideahvac/workflows/CI-CD/badge.svg)](https://github.com/reneklootwijk/node-mideahvac/actions)
+
 [![Coverage Status](https://coveralls.io/repos/github/reneklootwijk/node-mideahvac/badge.svg?branch=master)](https://coveralls.io/github/reneklootwijk/node-mideahvac?branch=master)
-![npm](https://img.shields.io/npm/v/node-mideahvac)
+
+[![npm](https://img.shields.io/npm/v/node-mideahvac)](https://www.npmjs.com/package/node-mideahvac)
 
 This module enables the monitoring and controlling of 'Midea'-like airconditioners. The remote control functionality via WiFi provided by various vendors of air conditioners, either as default or optional feature, is using the same type of interface and the Midea cloud. Examples of vendors using this interface are:
 
