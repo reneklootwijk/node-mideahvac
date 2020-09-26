@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const udp = require('dgram')
 const crypto = require('crypto')
 
@@ -68,6 +69,7 @@ client.on('message', (msg, info) => {
 
     appliances.push({
       id,
+      host: info.address,
       sn: data.subarray(8, 40).toString(),
       ssid: data.subarray(41, 41 + data[40]).toString(),
       port: parseInt(data.subarray(4, 8).toString('hex').match(/../g).reverse().join(''), 16),
