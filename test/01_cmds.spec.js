@@ -24,6 +24,14 @@ describe('Check construction of commands', function () {
     ac = new MockedConnection()
   })
 
+  it('check construction of getPowerUsage command', async function () {
+    try {
+      await ac.getPowerUsage()
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa21ac0000000000030341210144000000000000000000000000000000000004c6bc', 'getPowerUsage command corrupted')
+    }
+  })
+
   it('check construction of getStatus command', async function () {
     try {
       await ac.getStatus()

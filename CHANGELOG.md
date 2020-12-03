@@ -1,3 +1,7 @@
+## 0.1.15
+
+* Added support for reporting the actual power usage of the unit (getPowerUsage method and C1 parser).
+
 ## 0.1.14
 
 * Turns out the sendNetworkStatusNotification must be send once each 2 minutes to prevent the WiFi symbol from disappearing.

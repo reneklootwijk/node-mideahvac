@@ -123,6 +123,12 @@ The following methods are provided:
 | unitChangeable | boolean | ? |
 | verticalSwingMode | boolean | swing left and right |
 
+* `getPowerUsage(retry, emitUpdates)`, this method requests the current power usage of the unit (specific 41 command). The retry parameter indicates whether the command must be retried in case of a retryable error occurs (default = false) and the emitUpdates parameter indicates whether or not the status-update event must be emitted when updates are detected (default = true). The promise resolves to a JSON object containing the property values when successful. The following properties are reported:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| powerUsage | number | Power usage in kWh |
+
 * `getStatus(retry, emitUpdates)`, this method requests the current status of the unit (41 command). The retry parameter indicates whether the command must be retried in case of a retryable error occurs (default = false) and the emitUpdates parameter indicates whether or not the status-update event must be emitted when updates are detected (default = true). The promise resolves to a JSON object containing the property values when successful. The following properties are reported:
 
 | Property | Type | Description |
