@@ -1,4 +1,4 @@
-## 0.1.15
+## 0.1.18
 
 * Added support for reporting the actual power usage of the unit (getPowerUsage method and C1 parser).
 
