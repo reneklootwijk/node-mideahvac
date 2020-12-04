@@ -1,3 +1,9 @@
+# Changelog
+
+## 0.1.19
+
+* Fixed sending non 0x02 and 0x03 message types, these should not have a crc added.
+
 ## 0.1.18
 
 * Added support for reporting the actual power usage of the unit (getPowerUsage method and C1 parser).

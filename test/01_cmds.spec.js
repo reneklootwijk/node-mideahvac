@@ -24,6 +24,22 @@ describe('Check construction of commands', function () {
     ac = new MockedConnection()
   })
 
+  it('check construction of getElectronicId command', async function () {
+    try {
+      await ac.getElectronicId()
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa0bff0000000000030700ec', 'getElectronicId command corrupted')
+    }
+  })
+
+  it('check construction of sendNetworkStatusNotification command', async function () {
+    try {
+      await ac.sendNetworkStatusNotification()
+    } catch (error) {
+      assert.strictEqual(error.message, 'aa1eac0000000000030d0101040100007fff0001010100000000000000009e', 'sendNetworkStatusNotification command corrupted')
+    }
+  })
+
   it('check construction of getPowerUsage command', async function () {
     try {
       await ac.getPowerUsage()
