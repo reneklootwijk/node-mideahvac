@@ -180,7 +180,7 @@ The following methods are provided:
 | setpoint | number | The setpoint temperature |
 | settingTemperature2 | boolean | ? |
 | sleepModeActive |  boolean | flag indicating sleep mode is active or not | strong | boolean | |
-| temperatureUnit | object | unit in which the temperature is reported, 0: celcius, 1: fahrenheit |
+| temperatureUnit | object | unit in which the temperature is reported, 0: celsius, 1: fahrenheit |
 | timerMode | object | 0: absolute time, 1: relative time |
 | turboModeActive | boolean | flag indicating turbo mode is active or not |
 | ventilation | boolean | ? |
@@ -204,7 +204,7 @@ In this version the following properties can be set:
 | powerOn | boolean | true, false | power the unit on/off |
 | setpoint | number | 16 - 31 / 60 - 88| set the desired temperature in °C or °F|
 | sleepModeActive | boolean | true, false | turn the sleep mode on/off |
-| temperatureUnit | string | fahrenheit, celcius | set the temperature unit to fahrenheit/celcius |
+| temperatureUnit | string | fahrenheit, celsius | set the temperature unit to fahrenheit/celsius |
 | turboModeActive | boolean | true, false | turn turbo mode on/off |
 | verticalSwingMode | boolean | true, false | turn the vertical swinger on/off |
 
