@@ -236,7 +236,7 @@ describe('Check construction of commands', function () {
 
   it('check construction of setStatus command - setpoint', async function () {
     try {
-      await ac.setStatus({ setpoint: 13, temperatureUnit: 'celcius' })
+      await ac.setStatus({ setpoint: 13, temperatureUnit: 'celsius' })
     } catch (error) {
       assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 13°C succeeded')
     }
@@ -248,7 +248,7 @@ describe('Check construction of commands', function () {
     }
 
     try {
-      await ac.setStatus({ setpoint: 34, temperatureUnit: 'celcius' })
+      await ac.setStatus({ setpoint: 34, temperatureUnit: 'celsius' })
     } catch (error) {
       assert.strictEqual(error.message, 'The setpoint must be between 16 - 31°C', 'setting setpoint: 34°C succeeded')
     }
@@ -260,7 +260,7 @@ describe('Check construction of commands', function () {
     }
 
     try {
-      await ac.setStatus({ setpoint: 18, temperatureUnit: 'celcius' })
+      await ac.setStatus({ setpoint: 18, temperatureUnit: 'celsius' })
     } catch (error) {
       assert.strictEqual(error.message, 'aa24ac00000000000302404202000000003000000000000000000000000000000000002156', 'setting setpoint: 18°C failed')
     }
@@ -271,7 +271,7 @@ describe('Check construction of commands', function () {
       assert.strictEqual(error.message, 'aa24ac00000000000302404202000000003000000400000000000000000000000000001360', 'setting setpoint: 64°F failed')
     }
     try {
-      await ac.setStatus({ setpoint: 23.5, temperatureUnit: 'celcius' })
+      await ac.setStatus({ setpoint: 23.5, temperatureUnit: 'celsius' })
     } catch (error) {
       assert.strictEqual(error.message, 'aa24ac0000000000030240421700000000300000000000000000000000000000000000382a', 'setting setpoint: 23.5°C failed')
     }
@@ -308,7 +308,7 @@ describe('Check construction of commands', function () {
     try {
       await ac.setStatus({ temperatureUnit: 4 })
     } catch (error) {
-      assert.strictEqual(error.message, 'The temperatureUnit must either be fahrenheit or celcius', 'setting temperatureUnit: invalid value failed')
+      assert.strictEqual(error.message, 'The temperatureUnit must either be fahrenheit or celsius', 'setting temperatureUnit: invalid value failed')
     }
 
     try {
@@ -318,7 +318,7 @@ describe('Check construction of commands', function () {
     }
 
     try {
-      await ac.setStatus({ temperatureUnit: 'celcius' })
+      await ac.setStatus({ temperatureUnit: 'celsius' })
     } catch (error) {
       assert.strictEqual(error.message, 'aa24ac00000000000302404200000000003000000000000000000000000000000000001c5d', 'setting tempertureUnit: ceclius failed')
     }
