@@ -1,11 +1,10 @@
 # Creating your own WiFi adapter
 
-Because the dongle which provides the WiFi interface is connected to a UART port it is rather easy to create your own WiFi adapter without using the cloud, the authentication , en/decoding and en/decryption hassle. 
+Because the dongle which provides the WiFi interface is connected to a UART port it is rather easy to create your own WiFi adapter without using the cloud, the authentication , en/decoding and en/decryption hassle.
 
 Total costs will be less than 5 euro.
 
-
-The UART port uses 9600bps, 8 databits and no parity. 
+The UART port uses 9600bps, 8 databits and no parity.
 
 ## Hardware
 
@@ -23,7 +22,6 @@ The drawing and table show which pins need to be connected.
 | Vcc | 1 | 1 |
 | Rx | 2 | 2 |
 | Tx | 3 | 3 |
-
 
 ## Software
 

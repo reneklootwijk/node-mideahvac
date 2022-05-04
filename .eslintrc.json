@@ -20,5 +20,6 @@
         "mocha"
     ],
     "rules": {
+        "semi": [2, "always"]
     }
 }

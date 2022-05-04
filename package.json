@@ -1,6 +1,6 @@
 {
   "name": "node-mideahvac",
-  "version": "0.1.19",
+  "version": "0.2.0",
   "author": "Rene Klootwijk <rene@klootwijk.org>",
   "description": "Module to monitor and control 'Midea'-like air conditioners",
   "repository": {
@@ -8,27 +8,23 @@
     "url": "https://github.com/reneklootwijk/node-mideahvac.git"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "winston": "^3.3.3"
+    "axios": "^0.26.0",
+    "node-fetch": "^2.6.7",
+    "strftime": "^0.10.1",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-mocha": "^10.0.3",
+    "mocha": "^9.2.1",
+    "nyc": "^15.1.0",
+    "rewiremock": "^3.14.3"
   },
   "license": "MIT",
   "main": "./lib/index.js",
   "directories": {
     "lib": "./lib"
-  },
-  "devDependencies": {
-    "axios-mock-adapter": "^1.18.2",
-    "chai": "^4.2.0",
-    "eslint": "^6.6.0",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-mocha": "^6.2.1",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "mocha": "^6.2.2",
-    "nyc": "^14.1.1",
-    "rewiremock": "^3.13.9"
   },
   "publishConfig": {
     "access": "public"

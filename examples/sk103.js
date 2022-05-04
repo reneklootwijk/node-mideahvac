@@ -5,9 +5,7 @@ const appliances = require('node-mideahvac');
 
 // Specify your specific information
 const ac = appliances.createAppliance({
-  communicationMethod: 'serialbridge',
-  host: '<replace by the IP address of your serial bridge>',
-  port: '<replace by the port of your serial bridge>'
+  communicationMethod: 'sk103',
 });
 
 ac.on('status-update', data => {
