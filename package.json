@@ -1,6 +1,6 @@
 {
   "name": "node-mideahvac",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Rene Klootwijk <rene@klootwijk.org>",
   "description": "Module to monitor and control 'Midea'-like air conditioners",
   "repository": {
@@ -8,8 +8,6 @@
     "url": "https://github.com/reneklootwijk/node-mideahvac.git"
   },
   "dependencies": {
-    "axios": "^0.26.0",
-    "node-fetch": "^2.6.7",
     "strftime": "^0.10.1",
     "winston": "^3.6.0"
   },

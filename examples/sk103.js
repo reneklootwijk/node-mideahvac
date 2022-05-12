@@ -6,6 +6,8 @@ const appliances = require('node-mideahvac');
 // Specify your specific information
 const ac = appliances.createAppliance({
   communicationMethod: 'sk103',
+  key: '<replace by the key for your appliance>',
+  token: '<replace by the token for your appliance>'
 });
 
 ac.on('status-update', data => {
