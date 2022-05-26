@@ -243,7 +243,15 @@ Status codes:
 | 33 | refrigerant leakage protection |
 | 38 | water tank full or missing |
 
-* `setStatus(properties, retry)`, this method must be used to change the status of the unit. The properties parameter is an object containing all the properties and their values that need to be changed. The response is a JSON object containing all the properties with their values, just like returned by the getStatus method.
+* `initialize()`, this method can be used to perform some initializion:
+  * The getCapabilities command is issued to determine the supported capabilities
+  * The setStatus command is issued to determine the current values of all properties
+  * The sendNetworkStatusNotification command (only when the serialbridge method is used) is scheduled to be issued every 2 minutes to make sure the WiFi connected symbol is show on the AC display.
+The response is a JSON object merging the responses from the getCapabilities and getStatus mthods.
+
+* `sendNetworkStatusNotification()`, this method is only available for the serialbridge communication method must be called at least once every 2 minutes in order to display the WiFi connected symbol in the display of the AC.
+
+* `setStatus(properties, retry)`, this method must be used to change the status of the unit. The properties parameter is an object containing all the properties and their values that need to be changed. To prevent changing properties unintentionaly, before calling the setStatus command a getStatus command must be send to retrieve the current values of all properties. The response is a JSON object containing all the properties with their values, just like returned by the getStatus method.
 
 The following properties can be set:
 

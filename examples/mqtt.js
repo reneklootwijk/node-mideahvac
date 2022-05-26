@@ -15,11 +15,11 @@ const mqtt = require('mqtt');
 
 // Specify your specific information
 const options = {
-  deviceId: '<replace by a device Id>',
   communicationMethod: 'sk103',
+  host: '<replace by host name or ip address of the appliance>',
+  id: '<replace by the id of the appliance>',
   key: '<replace by the key for your appliance>',
-  token: '<replace by the token for your appliance>'
-};
+  token: '<replace by the token for your appliance>'};
 // or for serialbridge
 // {
 //   communicationMethod: 'serialbridge',
@@ -52,6 +52,11 @@ function batchPublish (properties) {
 const ac = appliances.createAppliance(options);
 
 const client = mqtt.connect('mqtt://test.mosquitto.org');
+
+// Any updated status properties will be published to the mqtt broker
+ac.on('status-update', data => {
+  batchPublish(data);
+});
 
 client.on('connect', function () {
   // Subscribe to receive commands
@@ -87,8 +92,4 @@ client.on('message', function (topic, message) {
 
     ac.setStatus({ [property]: message });
   }
-});
-
-ac.on('status-update', data => {
-  batchPublish(data);
 });
