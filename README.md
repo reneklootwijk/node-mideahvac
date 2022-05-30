@@ -35,6 +35,13 @@ All common functions of Airconditioners are supported, but support for specific 
 
 The direct communication with the original dongle, the SmartKey, has been tested with a SK103 running firmware 3.0.8. The discover command required to obtain the token and key required for direct communication only supports accounts that have been migrated to the MSmartHome app.
 
+:warning: The SK103 module, when using the SK103 communication method and poll the status frequently, might disconnect from your WiFi network and a powercycle is required to reconnect. Lowering the frequency of polling might prevent this.
+
+## Prerequisites
+
+For the direct communication method using an SK103 original SmartKey dongle is required running firmware version 3.0.8 and a MSmartHome account (Midea Air or NetHome Plus accounts do not work anymore because Midea removed the ability to retrieve the required key and token for these type of accounts).
+
+For the serialbridge 
 ## Installation
 
 ```bash
@@ -49,11 +56,12 @@ First create an appliance instance by specifying the following parameters:
 | --- | --- | --- |
 | `communicationMethod` | this must be either 'sk103' or 'serialbridge' | sk103 / serialbridge |
 | `host` | this is the address of the dongle, either the SmartKey (sk103) or the custom dongle running TCP-serial bridge firmware | sk103 / serialbridge |
+| `host` | this is the port the TCP-serial bridge firmware is listening on (default 23) | serialbridge |
 | `id` | the id of the appliance (as can be determined using the [discovery](#discovery) tool) | sk103 |
 | `key` | The key can be obtained using the [discover](#discover) tool) | sk103 |
 | `token` | The token can be obtained using the [discover](#discover) tool) | sk103 |
 
-For each AC unit to be monitored and controlled an appliance must be initiated.
+For each AC unit to be monitored and controlled an appliance must be instantiated.
 
 An example of creating an appliance using the sk103 direct communication method:
 
