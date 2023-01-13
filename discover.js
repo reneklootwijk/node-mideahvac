@@ -13,7 +13,7 @@ logger.add(new logger.transports.Console({
       return `${event.timestamp}: ${event.message}`;
     })
   ),
-  level: 'nonegit '
+  level: 'none'
 }));
 
 const appliances = [];
@@ -39,6 +39,7 @@ let newEncryptionVersion = false;
 const signKey = 'xhdiwjnchekd4d512chdjx5d8e4c394D2D7S';
 let cloudClient;
 let password;
+let targetIP = '255.255.255.255';
 let user;
 
 function decrypt (data) {
@@ -81,10 +82,16 @@ for (let i = 2; i < process.argv.length; i++) {
       password = value;
       break;
 
+    case 'T':
+    case '--target':
+      targetIP = value;
+      break;
+
     default:
       console.log('discover [options]');
       console.log('-U, --user\tuser name to authenticate to the Midea cloud');
       console.log('-P, --password\tpassword to authenticate to the Midea cloud');
+      console.log('-T, --target\ttarget IP address to use for scanning [default=255.255.255.255]');
       process.exit(1);
   }
 }
@@ -136,8 +143,7 @@ setTimeout(async () => {
 client.bind({}, () => {
   client.setBroadcast(true);
 
-  client.send(broadcast, 0, broadcast.length, 6445, '255.255.255.255', error => {
-  // client.send(broadcast, 0, broadcast.length, 6445, '192.168.5.62', error => {
+  client.send(broadcast, 0, broadcast.length, 6445, targetIP, error => {
     if (error) {
       console.log(error);
       client.close();

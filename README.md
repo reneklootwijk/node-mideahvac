@@ -15,7 +15,7 @@ This module enables the monitoring and controlling of 'Midea'-like airconditione
 * Artel
 * Carrier
 
-The WiFi interface is provided by a dongle, called WiFi SmartKey (sk103), either connected to an USB type-A connector or a JST-HX type of connector. This dongle wraps the UART protocol used to communicate with the AC unit with a layer for authentication and encryption for communication with a mobile app via the Midea cloud or directly via a local LAN connection. However, it turned out the dongle is just connected to a serial interface (TTL level) of the AC unit. This means an alternative is to hook up directly to this serial interface and bypass the cloud, authentication and encryption stuff. More information on creating a custom dongle can be found [here](./CustomDongle.md), [here](https://github.com/reneklootwijk/mideahvac-dongle) and [here](https://github.com/dudanov/iot-uni-dongle).
+The WiFi interface is provided by a dongle, called WiFi SmartKey (sk103), either connected to an USB type-A connector or a JST-HX type of connector. This dongle wraps the UART protocol used to communicate with the AC unit with a layer for authentication and encryption for communication with a mobile app via the Midea cloud or directly via a local LAN connection. However, it turned out the dongle is just connected to a serial interface (TTL level) of the AC unit. This means an alternative is to hook up directly to this serial interface and bypass the cloud, authentication and encryption stuff. More information on creating a custom dongle can be found the [prerequisites](#prerequisites) section.
 
 This module supports direct communication using the WiFi SmartKey and direct communication via a TCP-serial bridge connected to the UART port of the appliance (e.g a custom dongle running [esp-link firmware](https://github.com/jeelabs/esp-link)).
 
@@ -41,7 +41,12 @@ The direct communication with the original dongle, the SmartKey, has been tested
 
 For the direct communication method using an SK103 original SmartKey dongle is required running firmware version 3.0.8 and a MSmartHome account (Midea Air or NetHome Plus accounts do not work anymore because Midea removed the ability to retrieve the required key and token for these type of accounts).
 
-For the serialbridge 
+For the serialbridge a custom dongle is required running the [esp-link firmware](https://github.com/jeelabs/esp-link)). Examples of designs of custom dongles are:
+
+* [Universal IoT dongle](https://www.hackster.io/news/sergey-dudanov-s-universal-iot-dongle-packs-an-esp8266-for-easy-appliance-remote-control-d372caa94ac7)
+* [Mine](https://github.com/reneklootwijk/mideahvac-dongle)
+* [Using standard Aliexpress components](./custom-dongle.md)
+
 ## Installation
 
 ```bash
@@ -58,8 +63,8 @@ First create an appliance instance by specifying the following parameters:
 | `host` | this is the address of the dongle, either the SmartKey (sk103) or the custom dongle running TCP-serial bridge firmware | sk103 / serialbridge |
 | `host` | this is the port the TCP-serial bridge firmware is listening on (default 23) | serialbridge |
 | `id` | the id of the appliance (as can be determined using the [discovery](#discovery) tool) | sk103 |
-| `key` | The key can be obtained using the [discover](#discover) tool) | sk103 |
-| `token` | The token can be obtained using the [discover](#discover) tool) | sk103 |
+| `key` | The key can be obtained using the [discover](#discovery) tool) | sk103 |
+| `token` | The token can be obtained using the [discover](#discovery) tool) | sk103 |
 
 For each AC unit to be monitored and controlled an appliance must be instantiated.
 
@@ -329,9 +334,17 @@ The module installs the midea-discover command line tool in the node_modules/.bi
 ```bash
 # node_modules/.bin/midea-discover [--user=<MSmartHome user>, --password=<MSmartHome password>]
 ```
+
 or
+
 ```bash
 # npx midea-discover [--user=<MSmartHome user>, --password=<MSmartHome password>]
+```
+
+By default the discover command uses the 255.255.255.255 broadcast address which means only appliances on the same subnet network as the computer running the discover command will be discovered. If the appliances are on another network either specify the broadcast IP address of that network, e.g. 192.168.3.255, or use the IP address of the appliance itself using the -T or --target parameter:
+
+```bash
+# npx midea-discover --target=[target IP address]
 ```
 
 Example response:
