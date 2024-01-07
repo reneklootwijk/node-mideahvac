@@ -27,19 +27,19 @@ The knowledge to create the logic to monitor and control the Midea-'like' AC uni
 * NeoAcheron: <https://github.com/NeoAcheron/midea-ac-py>
 * Nenad Bogojevic: <https://github.com/nbogojevic/midea-beautiful-air/tree/main/midea_beautiful>
 
-Mac Zhou and Nenad Bogojevic deserve all the credits for reverse engineering the direct communication with the SmartKey. Where I had given up on ever figuring out how to obtain the key and token required, Mac persisted and eventually was successful, while Nenad was able to discover what changed in this process for users who migrated their accounts from the Midea Air app to the MSmartHome app.
+Mac Zhou and Nenad Bogojevic deserve all the credits for reverse engineering the direct communication with the SmartKey. Where I had given up on ever figuring out how to obtain the key and token required, Mac persisted and eventually was successful, while Nenad was able to discover what changed in this process for users who migrated their accounts from the Midea Air app to the SmartHome app.
 
 ## Status
 
 All common functions of Airconditioners are supported, but support for specific features only available on some airconditioners might be incomplete or missing because it is unknown how they work and the inability to test. Any help is welcome. Also support for (de)humidifiers is missing.
 
-The direct communication with the original dongle, the SmartKey, has been tested with a SK103 running firmware 3.0.8. The discover command required to obtain the token and key required for direct communication only supports accounts that have been migrated to the MSmartHome app.
+The direct communication with the original dongle, the SmartKey, has been tested with a SK103 running firmware 3.0.8. The discover command required to obtain the token and key required for direct communication only supports accounts that have been migrated to the SmartHome app.
 
 :warning: The SK103 module, when using the SK103 communication method and poll the status frequently, might disconnect from your WiFi network and a powercycle is required to reconnect. Lowering the frequency of polling might prevent this.
 
 ## Prerequisites
 
-For the direct communication method using an SK103 original SmartKey dongle is required running firmware version 3.0.8 and a MSmartHome account (Midea Air or NetHome Plus accounts do not work anymore because Midea removed the ability to retrieve the required key and token for these type of accounts).
+For the direct communication method using an SK103 original SmartKey dongle is required running firmware version 3.0.8 and a SmartHome account (Midea Air or NetHome Plus accounts do not work anymore because Midea removed the ability to retrieve the required key and token for these type of accounts).
 
 For the serialbridge a custom dongle is required running the [esp-link firmware](https://github.com/jeelabs/esp-link)). Examples of designs of custom dongles are:
 
@@ -329,16 +329,16 @@ More information on Winston can be found here: <https://www.npmjs.com/package/wi
 
 ## Discovery
 
-The module installs the midea-discover command line tool in the node_modules/.bin directory. This tool tries to find any appliances on the local network with a SmartKey and displays all relevant information required for configuring this module. When the userId and password of a MSmartHome account are specified on the command line, the discovery tool will also retrieve the values for the token and key required. These values are retrieved from the Midea cloud so an Internet connection is required, but these values only need to be retrieved once.
+The module installs the midea-discover command line tool in the node_modules/.bin directory. This tool tries to find any appliances on the local network with a SmartKey and displays all relevant information required for configuring this module. When the userId and password of a SmartHome account are specified on the command line, the discovery tool will also retrieve the values for the token and key required. These values are retrieved from the Midea cloud so an Internet connection is required, but these values only need to be retrieved once.
 
 ```bash
-# node_modules/.bin/midea-discover [--user=<MSmartHome user>, --password=<MSmartHome password>]
+# node_modules/.bin/midea-discover [--user=<SmartHome user>, --password=<SmartHome password>]
 ```
 
 or
 
 ```bash
-# npx midea-discover [--user=<MSmartHome user>, --password=<MSmartHome password>]
+# npx midea-discover [--user=<SmartHome user>, --password=<SmartHome password>]
 ```
 
 By default the discover command uses the 255.255.255.255 broadcast address which means only appliances on the same subnet network as the computer running the discover command will be discovered. If the appliances are on another network either specify the broadcast IP address of that network, e.g. 192.168.3.255, or use the IP address of the appliance itself using the -T or --target parameter:

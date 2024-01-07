@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 0.3.1
+
+### Fixed
+
+* Fixed authentication to the cloud to obtain a token and key when using discovery
+
 ## Version 0.3.0
 
 ### New
