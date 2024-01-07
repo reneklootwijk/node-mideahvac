@@ -61,7 +61,7 @@ First create an appliance instance by specifying the following parameters:
 | --- | --- | --- |
 | `communicationMethod` | this must be either 'sk103' or 'serialbridge' | sk103 / serialbridge |
 | `host` | this is the address of the dongle, either the SmartKey (sk103) or the custom dongle running TCP-serial bridge firmware | sk103 / serialbridge |
-| `host` | this is the port the TCP-serial bridge firmware is listening on (default 23) | serialbridge |
+| `port` | this is the port the TCP-serial bridge firmware is listening on (default 23) | serialbridge |
 | `id` | the id of the appliance (as can be determined using the [discovery](#discovery) tool) | sk103 |
 | `key` | The key can be obtained using the [discover](#discovery) tool) | sk103 |
 | `token` | The token can be obtained using the [discover](#discovery) tool) | sk103 |

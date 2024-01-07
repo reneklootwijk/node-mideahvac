@@ -119,7 +119,7 @@ setTimeout(async () => {
     console.log(`- UDP Id: ${appliances[i].udpId}`);
 
     if (cloudClient) {
-      await cloudClient.getToken(appliances[i].udpId)
+      await cloudClient.getToken(appliances[i].id.toString(16), appliances[i].udpId)
         .then(pair => {
           appliances[i].key = pair.key;
           appliances[i].token = pair.token;
