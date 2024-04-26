@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 0.3.3
+
+* Updated this changelog
+
+## Version 0.3.2
+
+* Fixed target IP lookup for node version > 20.x
+
 ## Version 0.3.1
 
 ### Fixed
